@@ -17,7 +17,6 @@ type CreateOpportunitiesRequest struct {
 	Salary 		int64 		`json:"salary"`
 }
 
-
 func (r *CreateOpportunitiesRequest) Validate() error{
 	if r.Role == "" && r.Company == "" && r.Location == "" && r.Remote == nil &&  r.Link == "" && r.Salary <= 0{ 
 		return fmt.Errorf("request body is empty or malformed")
@@ -43,4 +42,22 @@ func (r *CreateOpportunitiesRequest) Validate() error{
 
 	return nil
 
+}
+type UpdateOpportunitiesRequest struct {
+	ID          string		`json:"id"`
+	Role 		string 		`json:"role"`
+	Company 	string 		`json:"company"`
+	Location 	string	 	`json:"location"`
+	Remote 		*bool 		`json:"remote"`
+	Link 		string	 	`json:"link"`
+	Salary 		int64 		`json:"salary"`
+}
+
+
+func (r *UpdateOpportunitiesRequest) Validate() error {
+	fmt.Printf("A request esta sendo feita assim: %v", r)
+	if r.ID != "" || r.Role != "" || r.Company != "" || r.Location != "" || r.Remote != nil || r.Link != "" || r.Salary > 0 {
+		return nil
+	}
+	return fmt.Errorf("at least one valid field must be provided")
 }
